@@ -39,7 +39,8 @@ public class ParentService extends UserService<Parent, ParentRepository> {
 
 	public Parent getParentByAssignedclinic(String assignedclinic) {
 		return repository.findByAssignedclinic(assignedclinic);
-	}
+	}       
+        
 	
 	public void delete(String userName) {
 		Parent fi = repository.findByUsername(userName);

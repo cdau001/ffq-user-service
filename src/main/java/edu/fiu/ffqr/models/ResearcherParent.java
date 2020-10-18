@@ -8,50 +8,50 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import edu.fiu.ffqr.models.Researcher;
+import edu.fiu.ffqr.models.Clinician;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Document(collection="researchparent")
-public class ResearchParent extends User implements Serializable{
+@Document(collection="researcher_parents")
+public class ResearcherParent extends User implements Serializable{
 
     @Id
     private ObjectId _id;
-	@JsonProperty("userId")
-	private String userId; 
-	@JsonProperty("username")
-	private String username;
-    @JsonProperty("userpassword")
-    private String userpassword;
+    @JsonProperty("userId")
+    private String userId; 
+    @JsonProperty("username")
+    private String username;
     @JsonProperty("usertype")
     private String usertype;
     @JsonProperty("firstname")
     private String firstname;
     @JsonProperty("lastname")
     private String lastname;
-    @JsonProperty("assignedsite")
-    private String assignedsite;
-	@JsonProperty("researcherId")
-    private String researcherId;
+    @JsonProperty("assignedResearcherOrg")
+    private String assignedResearcherOrg;
+    @JsonProperty("assignedResearcherUser")
+    private String assignedResearcherUser;    
     @JsonProperty("childrennames")
     private ArrayList<String> childrennames = new ArrayList<String>();
     @JsonProperty("isactive")
     private boolean isactive;
 
-	public ResearchParent() {}
+	public ResearcherParent() {}
 	
-    public ResearchParent(String userId, String username, String userpassword, String usertype, String firstname, String lastname, String researcherId,
-    String assignedsite, ArrayList<String> childrennames, boolean isactive){
+    public ResearcherParent(String userId, String username, String userpassword, String usertype, 
+            String firstname, String lastname, String assignedResearcherOrg,
+            String assignedResearcherUser, ArrayList<String> childrennames, boolean isactive){
         this.userId = userId;
 		this.username = username;
         this.userpassword = userpassword;
         this.usertype = usertype;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.assignedsite = assignedsite;
-        this.researcherId = researcherId;
+        this.assignedResearcherOrg = assignedResearcherOrg;
+        this.assignedResearcherUser = assignedResearcherUser;
         this.childrennames = childrennames;
         this.isactive = isactive;
+       
 
     }
 
@@ -97,25 +97,25 @@ public class ResearchParent extends User implements Serializable{
     }
     
 
-    public String getAssignedSite() {
-        return this.assignedsite;
+    public String getAssignedResearcherOrg() {
+        return this.assignedResearcherOrg;
     }
-    public void setAssignedSite(String assignedsite) {
-        this.assignedsite = assignedsite;
+    public void setAssignedResearcherOrg(String assignedResearcherOrg) {
+        this.assignedResearcherOrg = assignedResearcherOrg;
             
     }
 
-    public String getResearcherId() {
-        return this.researcherId;
+    public String getAssignedResearcherUser() {
+        return this.assignedResearcherUser;
     }
-    public void setResearcherId(String researcherId) {
-        this.researcherId = researcherId;
+    public void setAssignedResearcherUser(String assignedResearcherUser) {
+        this.assignedResearcherUser = assignedResearcherUser;
             
     }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+            this.username = username;
+    }
 
     public ArrayList<String> getChildrennames() {
         return this.childrennames;

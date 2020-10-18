@@ -1,0 +1,7 @@
+[
+    {"userId": "1","username": "Johndoe88", "userpassword": "admin123", "usertype": "parent", "firstname": "John", "lastname": "Doe", "assignedResearcherOrg": "Research1", "assignedResearcherUser": "Research1", "childrennames": ["Sarah", "Tom"], "isactive": true},
+    {"userId": "2","username": "parent2", "userpassword": "admin123", "usertype": "parent", "firstname": "", "lastname": "", "assignedResearcherOrg": "", "assignedResearcherUser": "Research1", "childrennames": ["jacob"], "isactive": true},
+    {"userId": "3","username": "parent3", "userpassword": "admin123", "usertype": "parent", "firstname": "", "lastname": "", "assignedResearcherOrg": "", "assignedResearcherUser": "Research1", "childrennames": ["Abagail"], "isactive": true},
+    {"userId": "4","username": "millyj", "userpassword": "admin123", "usertype": "parent", "firstname": "Melissa", "lastname": "James", "assignedResearcherOrg": "2", "assignedResearcherUser": "Research1", "childrennames": ["William", "Caroll"], "isactive": true}
+
+]

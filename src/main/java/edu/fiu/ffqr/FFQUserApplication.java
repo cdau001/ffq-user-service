@@ -29,11 +29,16 @@ public class FFQUserApplication {
 		String loadDataArg = (String) ctx.getBean("loadUsersEnvVar");
 		if (loadDataArg.equalsIgnoreCase("true")) {
 			DataLoader loader = (DataLoader)ctx.getBean(DataLoader.class);
-			loader.loadAdmin();
+			/*Uncomment methods below if you need to seedthe database.
+                        Imporant: uncomment only what's needed
+                        
+                        loader.loadAdmin();
 			loader.loadClinicians();
 			loader.loadParents();
 			loader.loadClinics();
 			loader.loadResearch();
+                    */
+                        loader.loadResearcherParents();
 		}
 		//======================================================================================
 
