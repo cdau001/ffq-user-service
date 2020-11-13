@@ -10,15 +10,5 @@ import org.springframework.stereotype.Repository;
 import edu.fiu.ffqr.models.Admin;
 
 @Repository
-public interface AdminRepository extends MongoRepository<Admin, String> {
-
-  Admin getUserBy_id(ObjectId _id);
-
-  Admin getByUserId(String userId);
-	
-  Admin findByUsername(String username);
-
- // List<User> getAdmins(boolean isAdmin);
-  
-    
+public interface AdminRepository extends UserRepository<Admin> {
 }

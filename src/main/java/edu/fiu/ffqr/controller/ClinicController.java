@@ -63,24 +63,17 @@ public class ClinicController{
   }
 
   @PutMapping("/updateclinic")
-    public void updateClinic(@RequestBody Clinic clinic) throws JsonProcessingException {
-        
-        if (clinicService.getClinicByClinicId(clinic.getClinicId()) == null) {
-            throw new IllegalArgumentException("A clinic with the name " + clinic.getClinicId() + " doesn't exist");
-        }
-
-        Clinic currentClinic = clinicService.getClinicByClinicId(clinic.getClinicId());
-
-        currentClinic.setAddress(clinic.getAddress());
-        currentClinic.setDatebuilt(clinic.getDatebuilt());
-        currentClinic.setClinicname(clinic.getClinicname());
-        currentClinic.setHeadclinician(clinic.getHeadclinician());
-        currentClinic.setIsactive(clinic.getIsactive());
-
-
-
-
-        clinicRepository.save(currentClinic);
+    public Clinic updateClinic(@RequestBody Clinic clinic) throws JsonProcessingException {
+      Clinic currentClinic = clinicService.getClinicByClinicId(clinic.getClinicId());
+      if (currentClinic == null) {
+          throw new IllegalArgumentException("A clinic with the name " + clinic.getClinicId() + " doesn't exist");
+      }
+      currentClinic.setAddress(clinic.getAddress());
+      currentClinic.setDatebuilt(clinic.getDatebuilt());
+      currentClinic.setClinicname(clinic.getClinicname());
+      currentClinic.setHeadclinician(clinic.getHeadclinician());
+      currentClinic.setIsactive(clinic.getIsactive());
+      return clinicRepository.save(currentClinic);
     }
 
 
@@ -94,10 +87,6 @@ public class ClinicController{
         return clinicService.create(item);
     }
 
-    
-    
-   
-	
 	@PostMapping("/createMany")
 	public ArrayList<Clinic> create(@RequestBody ArrayList<Clinic> clinics) {
 		Clinic clinic = null;
@@ -109,9 +98,7 @@ public class ClinicController{
 		
 		return clinics;
 	}
-	
-	  
-	  
+
 	  @DeleteMapping("/delete")
 	  public String delete(@RequestParam String clinicId) {
         clinicService.deleteById(clinicId);

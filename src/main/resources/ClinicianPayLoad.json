@@ -1,7 +1,7 @@
 [
-    {"userId": "1","username": "clinician1", "userpassword": "admin123", "usertype": "clinician", "abbreviation": "Dr", "firstname": "Mary", "lastname": "Adams", "assignedclinic": 1, "previousclinics": [1], "isactive": true},
-    {"userId": "2","username": "clinician2", "userpassword": "admin123", "usertype": "clinician", "abbreviation": "Nurse","firstname": "John", "lastname": "Smith", "assignedclinic": 2, "previousclinics": [1, 2], "isactive": true},
-    {"userId": "3","username": "clinician3", "userpassword": "admin123", "usertype": "clinician", "abbreviation": "Dr","firstname": "Giraldo", "lastname": "Gabriel", "assignedclinic": 2, "previousclinics": [2], "isactive": true},
-    {"userId": "4","username": "clinician4", "userpassword": "admin123", "usertype": "clinician", "abbreviation": "Nurse","firstname": "Tom", "lastname": "Hanks", "assignedclinic": 1, "previousclinics": [1], "isactive": true}
+    {"userId": "1","username": "clinician1", "userpassword": "admin123", "usertype": "clinician", "abbreviation": "Dr", "firstname": "Mary", "lastname": "Adams", "assignedclinic": 1, "previousclinics": [1], "isactive": true, "parentLimitForClinician": 30},
+    {"userId": "2","username": "clinician2", "userpassword": "admin123", "usertype": "clinician", "abbreviation": "Nurse","firstname": "John", "lastname": "Smith", "assignedclinic": 2, "previousclinics": [1, 2], "isactive": true, "parentLimitForClinician": 35},
+    {"userId": "3","username": "clinician3", "userpassword": "admin123", "usertype": "clinician", "abbreviation": "Dr","firstname": "Giraldo", "lastname": "Gabriel", "assignedclinic": 2, "previousclinics": [2], "isactive": true, "parentLimitForClinician": 22},
+    {"userId": "4","username": "clinician4", "userpassword": "admin123", "usertype": "clinician", "abbreviation": "Nurse","firstname": "Tom", "lastname": "Hanks", "assignedclinic": 1, "previousclinics": [1], "isactive": true, "parentLimitForClinician": 26}
 
 ]

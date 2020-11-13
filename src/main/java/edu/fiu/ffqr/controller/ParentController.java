@@ -3,7 +3,6 @@ package edu.fiu.ffqr.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,13 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import edu.fiu.ffqr.FFQUserApplication;
-import edu.fiu.ffqr.models.SysUser;
 import edu.fiu.ffqr.repositories.ParentRepository;
-import edu.fiu.ffqr.service.SysUserService;
 //import edu.fiu.ffqr.service.UserService;
 import edu.fiu.ffqr.models.Parent;
-import edu.fiu.ffqr.service.ClinicianService;
 import edu.fiu.ffqr.service.ParentService;
 
 
@@ -50,13 +45,13 @@ public class ParentController{
 
     @GetMapping("/{userID}")
 	public Parent getParent(@PathVariable("userID") String userId) {
-		return parentService.getParentByUserId(userId);
+		return parentService.getUserByUserIdNoPassword(userId);
 	}
     
     @PostMapping("/createparent")
     public Parent createUser(@RequestBody Parent user) throws JsonProcessingException {
 
-      if (parentService.getParentByUsername(user.getUsername()) != null) {
+      if (parentService.getUserByUsername(user.getUsername()) != null) {
             throw new IllegalArgumentException("A user with Username " + user.getUsername() + " already exists");
       }  
 	  return parentService.create(user);
@@ -66,41 +61,30 @@ public class ParentController{
   @PutMapping("/updateparent")
     public void updateUser(@RequestBody Parent user) throws JsonProcessingException {
         
-        if (parentService.getParentByUserId(user.getUserId()) == null) {
+        if (parentService.getUserByUserId(user.getUserId()) == null) {
             throw new IllegalArgumentException("A user with Username " + user.getUsername() + " doesn't exist");
         }
 
-        Parent currentUser = parentService.getParentByUserId(user.getUserId());
+        Parent currentUser = parentService.getUserByUserId(user.getUserId());
         
-        currentUser.setUsername(user.getUsername());
-        currentUser.setUserpassword(user.getUserpassword());
-        currentUser.setFirstname(user.getFirstname());
-        currentUser.setLastname(user.getLastname());
-        currentUser.setUsertype(user.getUsertype());
-
         currentUser.setAssignedclinic(user.getAssignedclinic());
         currentUser.setAssignedclinician(user.getAssignedclinician()); 
-        currentUser.setChildrennames(user.getChildrennames());            
+        currentUser.setChildrenNames(user.getChildrenNames());
 
-        parentRepository.save(currentUser);    
+        parentService.update(currentUser, user);
     }
-
 
     @PostMapping("/create")
     public Parent create(@RequestBody Parent item) throws JsonProcessingException {
         
-        if (parentService.getParentByUsername(item.getUsername()) != null) {
+        if (parentService.getUserByUsername(item.getUsername()) != null) {
             throw new IllegalArgumentException("A parent with Username " + item.getUsername() + " already exists");
         }
 
         return parentService.create(item);
     }
 
-    
-    
-   
-	
-	@PostMapping("/createMany")
+	@PostMapping("/createManyParents")
 	public ArrayList<Parent> create(@RequestBody ArrayList<Parent> users) {
 		Parent user = null;
 		

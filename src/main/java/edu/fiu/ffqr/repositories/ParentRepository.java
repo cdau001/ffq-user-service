@@ -1,14 +1,11 @@
 package edu.fiu.ffqr.repositories;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import edu.fiu.ffqr.models.Parent;
-import edu.fiu.ffqr.models.Clinician;
 
 @Repository
+<<<<<<< HEAD
 public interface ParentRepository extends MongoRepository<Parent, String> {
 
     Parent getUserBy_id(ObjectId _id);
@@ -21,3 +18,7 @@ public interface ParentRepository extends MongoRepository<Parent, String> {
    
     
 }
+=======
+public interface ParentRepository extends UserRepository<Parent> {
+}
+>>>>>>> 4990bc9ca318afa4ac900a716dd6ba3896b98de8

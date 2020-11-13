@@ -1,8 +1,6 @@
 package edu.fiu.ffqr.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -28,18 +26,22 @@ public class Clinic implements Serializable {
 	private String headclinician;
 	@JsonProperty("isactive")
 	private boolean isactive;
-	@JsonProperty("usersLimit")
-	private int usersLimit;
+	@JsonProperty("cliniciansLimit")
+	private int cliniciansLimit;
+	@JsonProperty("parentsLimit")
+	private int parentsLimit;
 
 	public Clinic() {}
-	public Clinic(String clinicId, String address, String datebuilt, String clinicname, String headclinician, boolean isactive, int usersLimit){
+
+	public Clinic(String clinicId, String address, String datebuilt, String clinicname, String headclinician, boolean isactive, int cliniciansLimit, int parentsLimit){
         this.clinicId = clinicId;
 		this.address = address;
 		this.datebuilt = datebuilt;
 		this.clinicname = clinicname;
 		this.headclinician = headclinician;
 		this.isactive = isactive;
-		this.usersLimit = usersLimit;
+		this.cliniciansLimit = cliniciansLimit;
+		this.parentsLimit = parentsLimit;
     }
 	
 
@@ -93,12 +95,21 @@ public class Clinic implements Serializable {
         this.isactive = isactive;
     }
 
-	public int getUsersLimit() {
-		return usersLimit;
+	public int getCliniciansLimit() {
+		return cliniciansLimit;
 	}
 
-	public void setUsersLimit(int usersLimit) {
-		this.usersLimit = usersLimit;
+	public void setCliniciansLimit(int cliniciansLimit) {
+		this.cliniciansLimit = cliniciansLimit;
 	}
+
+	public int getParentsLimit() {
+		return parentsLimit;
+	}
+
+	public void setParentsLimit(int parentsLimit) {
+		this.parentsLimit = parentsLimit;
+	}
+
 
 }
