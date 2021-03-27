@@ -18,8 +18,11 @@ public class ParticipantsService extends UserService<Participant, ParticipantsRe
 		this.repository = repository;
 	}
 
-	public List<Participant> getParticipantByAssignedInstitution(String assignedResearcherInst) {
+	public List<Participant> findAllByAssignedResearcherInst(String assignedResearcherInst) {
 		return repository.findByAssignedResearcherInst(assignedResearcherInst);
 	}
 
+	public void deleteAllByAssignedResearcherInst(String researcherInst) {
+		this.repository.deleteAllByAssignedResearcherInst(researcherInst);
+	}
 }

@@ -21,16 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import edu.fiu.ffqr.FFQUserApplication;
 import edu.fiu.ffqr.models.Authenticate;
-import edu.fiu.ffqr.models.SysUser;
-import edu.fiu.ffqr.repositories.AdminRepository;
-import edu.fiu.ffqr.models.Admin;
 import edu.fiu.ffqr.models.Researcher;
-import edu.fiu.ffqr.repositories.ResearchRepository;
-import edu.fiu.ffqr.service.SysUserService;
-import edu.fiu.ffqr.service.AdminService;
-import edu.fiu.ffqr.service.ResearchService;
+import edu.fiu.ffqr.repositories.ResearcherRepository;
+import edu.fiu.ffqr.service.ResearcherService;
 
 
 @RestController
@@ -39,9 +33,9 @@ import edu.fiu.ffqr.service.ResearchService;
 public class ResearchController {
 
     @Autowired
-    private ResearchService researchService;
+    private ResearcherService researchService;
     @Autowired
-    private ResearchRepository researchRepository;
+    private ResearcherRepository researcherRepository;
 
     public ResearchController() {
     }
@@ -103,7 +97,7 @@ public class ResearchController {
         currentUser.setLimitNumberOfParticipants(user.getLimitNumberOfParticipants());
         currentUser.setPrefix(user.getPrefix());
 
-        researchRepository.save(currentUser);
+        researcherRepository.save(currentUser);
 
         //return adminService.create(user);
     }

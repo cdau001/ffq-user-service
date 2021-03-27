@@ -10,4 +10,6 @@ import edu.fiu.ffqr.models.Participant;
 public interface ParticipantsRepository extends UserRepository<Participant> {
 
     List<Participant> findByAssignedResearcherInst(String assignedResearcherInst);
+
+    void deleteAllByAssignedResearcherInst(String researcherInst);
 }

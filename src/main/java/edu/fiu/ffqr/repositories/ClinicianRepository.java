@@ -10,4 +10,6 @@ import java.util.List;
 public interface ClinicianRepository extends UserRepository<Clinician> {
 
     List<Clinician> findAllByAssignedclinic(String assignedclinic);
+
+    void deleteAllByAssignedclinic(String assignedclinic);
 }

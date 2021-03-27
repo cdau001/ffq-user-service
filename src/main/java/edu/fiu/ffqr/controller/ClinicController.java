@@ -82,6 +82,7 @@ public class ClinicController{
       currentClinic.setClinicname(clinic.getClinicname());
       currentClinic.setHeadclinician(clinic.getHeadclinician());
       currentClinic.setIsactive(clinic.getIsactive());
+      currentClinic.setParentsLimit(clinic.getParentsLimit());
       return clinicRepository.save(currentClinic);
     }
 
@@ -119,7 +120,7 @@ public class ClinicController{
                             parentService.deleteByAssignedclinician(clinician.getUserId());
                         }
                   );
-                            clinicianService.findAllByAssignedClinic(clinicId);
+                            clinicianService.deleteAllByAssignedClinic(clinicId);
           clinicService.deleteById(clinicId);
 	  	  return "Deleted " + clinicId;
 	  }

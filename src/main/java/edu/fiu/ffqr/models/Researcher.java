@@ -1,8 +1,6 @@
 package edu.fiu.ffqr.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -28,9 +26,9 @@ public class Researcher implements Serializable {
 	private String firstname;
 	@JsonProperty("lastname")      
 	private String lastname;        
-        @JsonProperty("AssignedResearchInstitutionId")      
-	private String AssignedResearchInstitutionId; 
-        @JsonProperty("limitNumberOfParticipants")      
+	@JsonProperty("assignedResearchInstitutionId")
+	private String assignedResearchInstitutionId;
+	@JsonProperty("limitNumberOfParticipants")
 	private Number limitNumberOfParticipants; 
 	@JsonProperty("isactive")
         private boolean isactive;
@@ -42,7 +40,7 @@ public class Researcher implements Serializable {
 	
 	public Researcher(String userId, String username, String userpassword, 
                 String usertype, String firstname, String lastname, boolean isactive,
-                String AssignedResearchInstitutionId, Number limitNumberOfParticipants, String prefix){
+                String assignedResearchInstitutionId, Number limitNumberOfParticipants, String prefix){
                 this.userId = userId;
 		this.username = username;
 		this.userpassword = userpassword;
@@ -50,8 +48,8 @@ public class Researcher implements Serializable {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.isactive = isactive;
-                this.AssignedResearchInstitutionId = AssignedResearchInstitutionId;
-                this.limitNumberOfParticipants =limitNumberOfParticipants;
+                this.assignedResearchInstitutionId = assignedResearchInstitutionId;
+                this.limitNumberOfParticipants = limitNumberOfParticipants;
                 this.prefix = prefix;
 
     }
@@ -123,12 +121,12 @@ public class Researcher implements Serializable {
         return this.isactive;
     }
     
-    public void setAssignedResearchInstitutionId(String AssignedResearchInstitutionId){
-        this.AssignedResearchInstitutionId = AssignedResearchInstitutionId;
+    public void setAssignedResearchInstitutionId(String assignedResearchInstitutionId){
+        this.assignedResearchInstitutionId = assignedResearchInstitutionId;
     }
 
     public String getAssignedResearchInstitutionId(){
-        return this.AssignedResearchInstitutionId;
+        return this.assignedResearchInstitutionId;
     }
     
     public void setLimitNumberOfParticipants(Number limitNumberOfParticipants){

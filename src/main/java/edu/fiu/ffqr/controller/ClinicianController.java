@@ -21,6 +21,8 @@ import edu.fiu.ffqr.models.Clinician;
 import edu.fiu.ffqr.repositories.ClinicianRepository;
 //import edu.fiu.ffqr.service.UserService;
 import edu.fiu.ffqr.service.ClinicianService;
+import edu.fiu.ffqr.service.ParentService;
+import edu.fiu.ffqr.service.ResultsService;
 
 
 @RestController
@@ -32,6 +34,10 @@ public class ClinicianController{
     private ClinicianService clinicianService;
     @Autowired
     private ClinicianRepository clinicianRepository;
+    @Autowired
+     private ParentService parentService;
+    @Autowired
+    private ResultsService resultsService;
 
     public ClinicianController() {
     }
@@ -100,11 +106,17 @@ public class ClinicianController{
 		return createdUsers;
 	}
 
-	  @DeleteMapping("/delete")
-	  public String delete(@RequestParam String userId) {
-        Clinician clinician = this.clinicianService.getUserByUserId(userId);
+	@DeleteMapping("/delete")
+    public String delete(@RequestParam String userId) {
+
+        parentService.findAllByAssignedclinician(userId)
+            .forEach(parent ->
+                resultsService.deleteResultsByUserId(parent.getUserId())
+                );
+        parentService.deleteByAssignedclinician(userId);
+                            
         clinicianService.deleteById(userId);
-	  	  return "Deleted " + userId;
-	  }
+	  	return "Deleted " + userId;
+	}
 	
 }

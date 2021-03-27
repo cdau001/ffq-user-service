@@ -1,7 +1,7 @@
 [
     {
        "userId":"1",
-       "username":"participant1",
+       "username":"FIU_1",
        "userpassword":"participant1",
        "usertype":"participant",
        "firstname":"",
@@ -14,12 +14,12 @@
           "Sarah",
           "Tom"
        ],
-       "isactive":true
-	   "prefix": "preFixTest"
+       "isactive":true,
+	   "prefix": "FIU"
     },
     {
        "userId":"2",
-       "username":"FIU Research_2",
+       "username":"FIU_2",
        "userpassword":"15frn7absr",
        "usertype":"participant",
        "firstname":"",
@@ -31,12 +31,12 @@
        "childrennames":[
           "jacob"
        ],
-       "isactive":true
+       "isactive":true,
 	   "prefix": "FIU"
     },
     {
        "userId":"3",
-       "username":"FIU Research_3",
+       "username":"FIU_3",
        "userpassword":"35adfw67oh",
        "usertype":"participant",
        "firstname":"",
@@ -48,12 +48,12 @@
        "childrennames":[
           "Abagail"
        ],
-       "isactive":true
+       "isactive":true,
 	   "prefix": "FIU"
     },
     {
        "userId":"4",
-       "username":"FIU Research_4",
+       "username":"FIU_4",
        "userpassword":"3h57302fgj",
        "usertype":"participant",
        "firstname":"",
@@ -66,7 +66,7 @@
           "William",
           "Caroll"
        ],
-       "isactive":true
+       "isactive":true,
 	   "prefix": "FIU"
     }
  ]

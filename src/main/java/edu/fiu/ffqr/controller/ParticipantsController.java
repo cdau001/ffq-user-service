@@ -3,7 +3,6 @@ package edu.fiu.ffqr.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,13 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import edu.fiu.ffqr.FFQUserApplication;
-import edu.fiu.ffqr.models.SysUser;
-import edu.fiu.ffqr.service.SysUserService;
 //import edu.fiu.ffqr.service.UserService;
 import edu.fiu.ffqr.models.Participant;
 import edu.fiu.ffqr.service.ParticipantsService;
 import edu.fiu.ffqr.repositories.ParticipantsRepository;
+import edu.fiu.ffqr.service.ResultsService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -35,6 +32,8 @@ public class ParticipantsController {
     private ParticipantsService participantsService;
     @Autowired
     private ParticipantsRepository participantRepository;
+    @Autowired
+    private ResultsService resultsService;
 
     public ParticipantsController() {
     }
@@ -47,7 +46,7 @@ public class ParticipantsController {
 
     @GetMapping("/all/{instID}")
     public List<Participant> allResearcherParticipants(@PathVariable("instID") String instID) {
-        List<Participant> users = participantsService.getParticipantByAssignedInstitution(instID);
+        List<Participant> users = participantsService.findAllByAssignedResearcherInst(instID);
         return users;
     }
 
@@ -106,6 +105,7 @@ public class ParticipantsController {
 
     @DeleteMapping("/delete")
     public String delete(@RequestParam String userId) {
+        resultsService.deleteResultsByUserId(userId);
         participantsService.deleteById(userId);
         return "Deleted " + userId;
     }

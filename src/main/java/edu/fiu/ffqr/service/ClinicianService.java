@@ -22,4 +22,8 @@ public class ClinicianService  extends UserService<Clinician, ClinicianRepositor
 		return this.repository.findAllByAssignedclinic(assignedclinic);
 	};
 
+	public void deleteAllByAssignedClinic(String assignedclinic) {
+		this.repository.deleteAllByAssignedclinic(assignedclinic);
+	}
+
 }

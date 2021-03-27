@@ -29,7 +29,7 @@ import edu.fiu.ffqr.models.ResearchInstitution;
 import edu.fiu.ffqr.repositories.ParentRepository;
 import edu.fiu.ffqr.repositories.ClinicRepository;
 import edu.fiu.ffqr.repositories.ClinicianRepository;
-import edu.fiu.ffqr.repositories.ResearchRepository;
+import edu.fiu.ffqr.repositories.ResearcherRepository;
 import edu.fiu.ffqr.repositories.ParticipantsRepository;
 import edu.fiu.ffqr.repositories.ResearchInstitutionRepository;
 import edu.fiu.ffqr.controller.ResearchInstitutionController;
@@ -48,19 +48,19 @@ public class DataLoader {
 	private ClinicController clinicController; // Added to test for User
 	private ClinicRepository clinicRepository;
 	private ResearchController researchController;
-	private ResearchRepository researchRepository;
+	private ResearcherRepository researcherRepository;
 	private ParticipantsController researcherParentController;
 	private ParticipantsRepository researcherParentRepository;
 	private ResearchInstitutionController researchInstitutionController;
 	private ResearchInstitutionRepository researchInstitutionRepository;
 
 	public DataLoader(SysUsersRepository sysUsersRepository, SysUserController sysUserController,
-			AdminController adminController, AdminRepository adminRepository, ClinicianController clinicianController,
-			ClinicianRepository clinicianRepository, ParentController parentController, ParentRepository parentRepository,
-			ClinicController clinicController, ClinicRepository clinicRepository, ResearchController researchController,
-			ResearchRepository researchRepository, ParticipantsController researcherParentController,
-			ParticipantsRepository researcherParentRepository, ResearchInstitutionController researchInstitutionController,
-			ResearchInstitutionRepository researchInstitutionRepository) { // Added extra parameter (SysUsersRepository
+					  AdminController adminController, AdminRepository adminRepository, ClinicianController clinicianController,
+					  ClinicianRepository clinicianRepository, ParentController parentController, ParentRepository parentRepository,
+					  ClinicController clinicController, ClinicRepository clinicRepository, ResearchController researchController,
+					  ResearcherRepository researcherRepository, ParticipantsController researcherParentController,
+					  ParticipantsRepository researcherParentRepository, ResearchInstitutionController researchInstitutionController,
+					  ResearchInstitutionRepository researchInstitutionRepository) { // Added extra parameter (SysUsersRepository
 																																			// sysUsersRepository)
 		this.sysUsersRepository = sysUsersRepository; // Added for users test
 		this.sysUserController = sysUserController; // Added for users test
@@ -73,7 +73,7 @@ public class DataLoader {
 		this.clinicController = clinicController;
 		this.clinicRepository = clinicRepository;
 		this.researchController = researchController;
-		this.researchRepository = researchRepository;
+		this.researcherRepository = researcherRepository;
 		this.researcherParentController = researcherParentController;
 		this.researcherParentRepository = researcherParentRepository;
 		this.researchInstitutionController = researchInstitutionController;
@@ -250,7 +250,7 @@ public class DataLoader {
 	public void loadResearch() {
 		System.out.println("<------- Loading Research... ------->");
 
-		this.researchRepository.deleteAll();
+		this.researcherRepository.deleteAll();
 
 		try {
 

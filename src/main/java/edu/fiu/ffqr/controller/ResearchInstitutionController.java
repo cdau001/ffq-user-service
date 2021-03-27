@@ -1,12 +1,11 @@
 package edu.fiu.ffqr.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
+import edu.fiu.ffqr.service.ParticipantsService;
+import edu.fiu.ffqr.service.ResearcherService;
+import edu.fiu.ffqr.service.ResultsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,16 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import edu.fiu.ffqr.FFQUserApplication;
 import edu.fiu.ffqr.models.Authenticate;
-import edu.fiu.ffqr.models.SysUser;
-import edu.fiu.ffqr.repositories.AdminRepository;
-import edu.fiu.ffqr.models.Admin;
-import edu.fiu.ffqr.models.Clinician;
 import edu.fiu.ffqr.models.ResearchInstitution;
 import edu.fiu.ffqr.repositories.ResearchInstitutionRepository;
-import edu.fiu.ffqr.service.SysUserService;
-import edu.fiu.ffqr.service.AdminService;
 import edu.fiu.ffqr.service.ResearchInstitutionService;
 
 
@@ -40,7 +32,13 @@ import edu.fiu.ffqr.service.ResearchInstitutionService;
 public class ResearchInstitutionController {
 
     @Autowired
-    private ResearchInstitutionService researchService;
+    private ResearchInstitutionService researchInstitutionService;
+    @Autowired
+    private ResearcherService researcherService;
+    @Autowired
+    private ParticipantsService participantsService;
+    @Autowired
+    private ResultsService resultsService;
     @Autowired
     private ResearchInstitutionRepository researchRepository;
 
@@ -57,43 +55,44 @@ public class ResearchInstitutionController {
     @GetMapping("/all")
     public List<ResearchInstitution> allUsers() throws JsonProcessingException {
         
-        List<ResearchInstitution> users = researchService.getAll();
+        List<ResearchInstitution> users = researchInstitutionService.getAll();
         return users;
     }  
 
     @GetMapping("/{institutionID}")
 	public ResearchInstitution getResearchInstitutionById(@PathVariable("institutionID") String userID) {
-		return researchService.getResearchInstitutionById(userID);
+		return researchInstitutionService.getResearchInstitutionById(userID);
 	}
     
          @GetMapping("/name/{institutionName}")
 	public ResearchInstitution getResearchInstitutionByName(@PathVariable("institutionName") String institutionName) {
-		return researchService.getUserByInstitutionName(institutionName);
+		return researchInstitutionService.getUserByInstitutionName(institutionName);
 	}
         
     @PostMapping("/createInstitution")
     public ResearchInstitution createUser(@RequestBody ResearchInstitution user) throws JsonProcessingException {
 
-      if (researchService.getUserByInstitutionName(user.GetInstitutionName()) != null) {
+      if (researchInstitutionService.getUserByInstitutionName(user.GetInstitutionName()) != null) {
             throw new IllegalArgumentException("A research Institution with name " + user.GetInstitutionName() + " already exists");
       }  
-	  return researchService.create(user);
+	  return researchInstitutionService.create(user);
 	  
   }
 
   @PutMapping("/updateinstitution")
     public void updateUser(@RequestBody ResearchInstitution updatedUser) throws JsonProcessingException {
         
-        if (researchService.getResearchInstitutionById(updatedUser.getResearchInstitutionId()) == null) {
+        if (researchInstitutionService.getResearchInstitutionById(updatedUser.getResearchInstitutionId()) == null) {
             throw new IllegalArgumentException("A research Institution with name " + updatedUser.GetInstitutionName()+ " doesn't exist");
         }
 
-        ResearchInstitution currentUser = researchService.getResearchInstitutionById(updatedUser.getResearchInstitutionId());
+        ResearchInstitution currentUser = researchInstitutionService.getResearchInstitutionById(updatedUser.getResearchInstitutionId());
 
         currentUser.setAddress(updatedUser.getAddress());
         currentUser.setCreatedDate(updatedUser.getCreatedDate());
         currentUser.setInstitutionName(updatedUser.GetInstitutionName());
         currentUser.setSiteType(updatedUser.getSiteType());
+        currentUser.setParticipantsLimit(updatedUser.getParticipantsLimit());
 
         researchRepository.save(currentUser);
        
@@ -103,11 +102,11 @@ public class ResearchInstitutionController {
     @PostMapping("/create")
     public ResearchInstitution create(@RequestBody ResearchInstitution item) throws JsonProcessingException {
         
-        if (researchService.getUserByInstitutionName(item.GetInstitutionName()) != null) {
+        if (researchInstitutionService.getUserByInstitutionName(item.GetInstitutionName()) != null) {
             throw new IllegalArgumentException("A research Institution with name " + item.GetInstitutionName()+ " already exists");
         }
 
-        return researchService.create(item);
+        return researchInstitutionService.create(item);
     }
 
     
@@ -115,22 +114,32 @@ public class ResearchInstitutionController {
    
 	
 	@PostMapping("/createMany")
-	public ArrayList<ResearchInstitution> create(@RequestBody ArrayList<ResearchInstitution> users) {
-		ResearchInstitution user = null;
+	public ArrayList<ResearchInstitution> create(@RequestBody ArrayList<ResearchInstitution> researchInstitutions) {
+		ResearchInstitution institution = null;
 		
-		for(ResearchInstitution s : users)
+		for(ResearchInstitution researchInstitution : researchInstitutions)
 		{
-			user = researchService.create(s);
+			institution = researchInstitutionService.create(researchInstitution);
 		}
 		
-		return users;
+		return researchInstitutions;
 	}
 	
 	  
 	  
 	  @DeleteMapping("/delete")
 	  public String delete(@RequestParam String researchInstitutionId) {
-        researchService.deleteById(researchInstitutionId);
+          researcherService.findAllByAssignedResearchInstitutionId(researchInstitutionId)
+                  .forEach(researcher -> {
+                              participantsService.findAllByAssignedResearcherInst(researcher.getUserId())
+                                      .forEach(participant ->
+                                              resultsService.deleteResultsByUserId(participant.getUserId())
+                                      );
+                              participantsService.deleteAllByAssignedResearcherInst(researcher.getUserId());
+                          }
+                  );
+          researcherService.deleteAllByAssignedResearchInstitutionId(researchInstitutionId);
+          researchInstitutionService.deleteById(researchInstitutionId);
 	  	  return "Deleted " + researchInstitutionId;
       }
 	
